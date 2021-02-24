@@ -6,4 +6,4 @@ let anio = fechaActual.getFullYear();
 let anioNacimiento =  anio - parseInt(edad);
 
 
-alert("Hola " + nombre + "! actulamente vive en " + ciudad + " y usted tiene " + parseInt(edad) + ", posiblemente nacio en el año " + parseInt(anioNacimiento));
+alert("Hola " + nombre + "! actualmente vives en " + ciudad + " y tienes " + parseInt(edad) + ", posiblemente nacio en el año " + parseInt(anioNacimiento));
