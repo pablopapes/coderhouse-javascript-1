@@ -1,4 +1,48 @@
-let preguntas = [
+function Pregunta(descripcion, puntos) {
+    this.descripcion = descripcion;
+    this.puntos = puntos;
+}
+
+function Diagnostico() {
+    this.sumatoria = 0;
+    this.resultado = function () {
+        let resultado = "";
+        if (this.sumatoria < 8) {
+            resultado = "NO tienes sintomas de covid";
+        } else {
+            resultado = "Puede que tengas sintomas de covid";
+        }
+        alert(resultado);
+    };
+
+    this.sumarPuntos = function (puntos) {
+        this.sumatoria = this.sumatoria + puntos;
+    };
+
+}
+
+function OrdenarPreguntas(a, b) {
+
+    const preguntaA = a.puntos;
+    console.log(preguntaA)
+    const preguntaB = b.puntos;
+    console.log(preguntaA)
+
+    let comparar = 0;
+
+    if (preguntaA > preguntaB) {
+        comparar = -1;
+    } else if (preguntaA < preguntaB) {
+        comparar = 1;
+    }
+    return comparar;
+}
+
+let arraydePreguntas = [];
+let sumatoria = 0;
+
+
+let Listadopreguntas = [
     {
         pregunta: "¿Tenes Tos?",
         puntos: 1
@@ -29,7 +73,7 @@ let preguntas = [
     },
     {
         pregunta: "¿Tenes dificultades para respirar?",
-        puntos: 2
+        puntos: 3
     },
     {
         pregunta: "¿Tenes sintomas de fatiga?",
@@ -37,39 +81,32 @@ let preguntas = [
     },
     {
         pregunta: "¿Viajaste hace 14 dias?",
-        puntos: 3
+        puntos: 4
     },
     {
         pregunta: "¿Tuviste contacto directo con un paciente de Covid-19?",
-        puntos: 3
+        puntos: 5
     }
 ];
 
-function preguntasAleatorias(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (0 !== currentIndex) {
+Listadopreguntas.forEach(function (value, index, array) {
+    let pregunta = new Pregunta(value.pregunta, value.puntos);
+    arraydePreguntas.push(pregunta);
 
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
+});
 
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+arraydePreguntas.sort(OrdenarPreguntas);
 
-    return array;
-}
+diagnostico = new Diagnostico(0);
 
-preguntasAleatorias(preguntas);
+arraydePreguntas.forEach(function (value, index, array) {
 
-let sumatoria = 0;
-alert("Responde con SI o NO");
-preguntas.forEach(function (value, index, array) {
-    let respuesta = prompt(value.pregunta);
+    let respuesta = prompt(value.descripcion);
     if (respuesta.toUpperCase() === "SI") {
-        sumatoria = sumatoria + value.puntos;
+        diagnostico.sumarPuntos(value.puntos);
     }
 });
 
-alert("Sumatoria de Puntos " + sumatoria);
+
+diagnostico.resultado();
